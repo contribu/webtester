@@ -14,6 +14,7 @@ class MyCLI < Thor
   option :timeout, type: :numeric, default: 10
   option :user_agent, type: :string, default: 'webtester-crawler-bot'
   option :log_level, type: :string, default: 'info'
+  option :tests, type: :array, default: []
   def test
     logger = Logger.new(STDERR)
     logger.level = options[:log_level]
@@ -31,7 +32,8 @@ class MyCLI < Thor
       seed_urls: options[:seed_urls],
       is_url_allowed: is_url_allowed,
       timeout_sec: options[:timeout],
-      logger: logger
+      logger: logger,
+      tests: options[:tests]
     )
     results = tester.run
     formatter = HtmlFormatter.new

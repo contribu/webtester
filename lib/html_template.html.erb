@@ -1,6 +1,43 @@
 <html>
 <head></head>
 <body>
+<h2>Problem</h2>
+<table
+  border="1"
+  width="100%"
+  style="table-layout: auto;"
+>
+  <thead>
+  <tr>
+    <th>URL</th>
+    <th>Error</th>
+    <th>Status</th>
+    <th>Total Time (ms)</th>
+    <th>Size (bytes)</th>
+    <th>From Link Count</th>
+    <th>From Links (First 3)</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% error_results.each do |result| %>
+    <tr>
+      <th><a href="view-source:<%= result[:url] %>"><%= result[:url] %></a></th>
+      <th><%= result[:error] %></th>
+      <th><%= result[:status] %></th>
+      <th><%= result[:total_time] %></th>
+      <th><%= result[:size] %></th>
+      <th><%= result[:from_urls].length %></th>
+      <th>
+        <% result[:from_urls][0..2].each do |from_url| %>
+          <a href="view-source:<%= from_url %>"><%= from_url %></a><br />
+        <% end %>
+      </th>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<h2>All</h2>
 <table
   border="1"
   width="100%"
@@ -16,6 +53,7 @@
     <th>From Links (First 3)</th>
   </tr>
   </thead>
+  <tbody>
   <% results.each do |result| %>
     <tr>
       <th><a href="view-source:<%= result[:url] %>"><%= result[:url] %></a></th>
@@ -30,6 +68,7 @@
       </th>
     </tr>
   <% end %>
+  </tbody>
 </table>
 </body>
 </html>

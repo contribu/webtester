@@ -5,12 +5,21 @@ require 'htmlentities'
 require 'uri'
 
 class Tester
-  def initialize(fetcher:, seed_urls:, is_url_allowed:, logger:, timeout_sec:)
+  def initialize(fetcher:, seed_urls:, is_url_allowed:, logger:, timeout_sec:, tests:)
     @fetcher = fetcher
     @seed_urls = seed_urls
     @is_url_allowed = is_url_allowed
     @logger = logger
     @timeout_sec = timeout_sec
+    @tests = []
+
+    default_tests = [
+      "#{__dir__}/tests/not_found_test.rb",
+      "#{__dir__}/tests/server_error_test.rb"
+    ]
+    (default_tests + tests).uniq.sort.each do |test|
+      eval(File.read(test))
+    end
   end
 
   def run
@@ -64,6 +73,13 @@ class Tester
         end
       end
     end.flatten.compact.uniq
+  end
+
+  # used by test plugin
+  def register_test(test:)
+    @tests << {
+      test: test
+    }
   end
 
   private
