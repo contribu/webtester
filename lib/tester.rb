@@ -57,6 +57,9 @@ class Tester
       result[:to_urls] = result[:to_urls].uniq.sort
       result[:from_urls] = result[:from_urls].uniq.sort
     end
+    results.each do |_from_url, result|
+      result[:errors] = @tests.map { |test| test[:test].call(result)&.[](:error) }.uniq.sort.compact
+    end
     results.sort.to_h.values
   end
 
@@ -85,6 +88,6 @@ class Tester
   private
 
   def url_regex
-    %r{['"]((https://|//|/)[\w\-./?%&=]+)['"]}
+    %r{['"]((https://|//|/|\./|\.\./)[\w\-./?%&=]+)['"]}
   end
 end

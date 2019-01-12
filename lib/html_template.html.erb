@@ -21,15 +21,19 @@
   <tbody>
   <% error_results.each do |result| %>
     <tr>
-      <th><a href="view-source:<%= result[:url] %>"><%= result[:url] %></a></th>
-      <th><%= result[:error] %></th>
+      <th><a target="_blank" href="<%= result[:url] %>"><%= result[:url] %></a></th>
+      <th>
+        <% result[:errors].each do |error| %>
+          <%= error %><br />
+        <% end %>
+      </th>
       <th><%= result[:status] %></th>
       <th><%= result[:total_time] %></th>
       <th><%= result[:size] %></th>
       <th><%= result[:from_urls].length %></th>
       <th>
         <% result[:from_urls][0..2].each do |from_url| %>
-          <a href="view-source:<%= from_url %>"><%= from_url %></a><br />
+          <a target="_blank" href="<%= from_url %>"><%= from_url %></a><br />
         <% end %>
       </th>
     </tr>
@@ -56,14 +60,14 @@
   <tbody>
   <% results.each do |result| %>
     <tr>
-      <th><a href="view-source:<%= result[:url] %>"><%= result[:url] %></a></th>
+      <th><a target="_blank" href="<%= result[:url] %>"><%= result[:url] %></a></th>
       <th><%= result[:status] %></th>
       <th><%= result[:total_time] %></th>
       <th><%= result[:size] %></th>
       <th><%= result[:from_urls].length %></th>
       <th>
         <% result[:from_urls][0..2].each do |from_url| %>
-          <a href="view-source:<%= from_url %>"><%= from_url %></a><br />
+          <a target="_blank" href="<%= from_url %>"><%= from_url %></a><br />
         <% end %>
       </th>
     </tr>
