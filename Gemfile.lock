@@ -1,0 +1,63 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ast (2.4.0)
+    binding_of_caller (0.8.0)
+      debug_inspector (>= 0.0.1)
+    coderay (1.1.2)
+    debug_inspector (0.0.3)
+    faraday (0.15.4)
+      multipart-post (>= 1.2, < 3)
+    html-table (1.5.2)
+      strongtyping
+      structured_warnings (~> 0.3.0)
+    htmlentities (4.3.4)
+    jaro_winkler (1.5.2)
+    method_source (0.9.2)
+    multipart-post (2.0.0)
+    parallel (1.12.1)
+    parser (2.5.3.0)
+      ast (~> 2.4.0)
+    powerpack (0.1.2)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    pry-doc (1.0.0)
+      pry (~> 0.11)
+      yard (~> 0.9.11)
+    pry-rails (0.3.9)
+      pry (>= 0.10.4)
+    pry-stack_explorer (0.4.9.3)
+      binding_of_caller (>= 0.7)
+      pry (>= 0.9.11)
+    rainbow (3.0.0)
+    rubocop (0.62.0)
+      jaro_winkler (~> 1.5.1)
+      parallel (~> 1.10)
+      parser (>= 2.5, != 2.5.1.1)
+      powerpack (~> 0.1)
+      rainbow (>= 2.2.2, < 4.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (~> 1.4.0)
+    ruby-progressbar (1.10.0)
+    strongtyping (2.0.7)
+    structured_warnings (0.3.0)
+    thor (0.20.3)
+    unicode-display_width (1.4.1)
+    yard (0.9.16)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  faraday
+  html-table
+  htmlentities
+  pry-doc
+  pry-rails
+  pry-stack_explorer
+  rubocop
+  thor
+
+BUNDLED WITH
+   1.17.3
