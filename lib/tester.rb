@@ -22,16 +22,17 @@ class Tester
       url = remaining_urls.first
       @logger.info(url)
       response = @fetcher.fetch(url)
-      link_urls = if /text/i.match?(response['Content-Type'])
-                    extract_urls(response.body.force_encoding('utf-8').scrub, page_url: url)
+      link_urls = if /text/i.match?(response[:raw_response]['Content-Type'])
+                    extract_urls(response[:raw_response].body.force_encoding('utf-8').scrub, page_url: url)
                   else
                     []
                   end
 
       results[url] = {
         url: url,
-        size: response.body.bytesize,
-        status: response.status,
+        size: response[:raw_response].body.bytesize,
+        status: response[:raw_response].status,
+        total_time: (response[:total_time] * 1000).round,
         to_urls: link_urls,
         from_urls: []
       }
