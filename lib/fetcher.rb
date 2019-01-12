@@ -17,9 +17,10 @@ class Fetcher
 
   def fetch(url)
     sleep([@last_fetched_at + @default_interval_sec - Time.now, 0].max)
-    @connection.get do |req|
+    response = @connection.get do |req|
       req.url url
     end
     @last_fetched_at = Time.now
+    response
   end
 end

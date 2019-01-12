@@ -26,7 +26,7 @@ class Tester
                     extract_urls(response.body.force_encoding('utf-8').scrub, page_url: url)
                   else
                     []
-      end
+                  end
 
       results[url] = {
         url: url,

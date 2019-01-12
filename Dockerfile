@@ -1,4 +1,4 @@
-FROM contribu/buildenv_vnc
+FROM ruby:2.5.3
 
 ENV APP_ROOT /app
 ENV LC_ALL=C.UTF-8
