@@ -13,8 +13,10 @@ class MyCLI < Thor
   option :interval, type: :numeric, default: 1
   option :timeout, type: :numeric, default: 10
   option :user_agent, type: :string, default: 'webtester-crawler-bot'
+  option :log_level, type: :string, default: 'info'
   def test
     logger = Logger.new(STDERR)
+    logger.level = options[:log_level]
     fetcher = Fetcher.new(default_interval_sec: options[:interval], user_agent: options[:user_agent])
     regexps = options[:allowed_url_patterns].map do |pattern|
       Regexp.new(pattern)

@@ -16,10 +16,10 @@ class Tester
   def run
     started_at = Time.now
 
-    remaining_urls = @seed_urls.select { |url| @is_url_allowed.call(url) }.uniq.sort
+    remaining_urls = @seed_urls.select { |url| @is_url_allowed.call(url) }.uniq
     results = {}
     until remaining_urls.empty? || Time.now > started_at + @timeout_sec
-      url = remaining_urls.first
+      url = remaining_urls.min # required for determinacy
       @logger.info(url)
       response = @fetcher.fetch(url)
       link_urls = if /text/i.match?(response[:raw_response]['Content-Type'])
@@ -36,8 +36,8 @@ class Tester
         to_urls: link_urls,
         from_urls: []
       }
-      remaining_urls = remaining_urls + link_urls - results.keys
-      remaining_urls = remaining_urls.select { |url| @is_url_allowed.call(url) }.uniq.sort
+      allowed_link_urls = link_urls.select { |url| @is_url_allowed.call(url) }
+      remaining_urls = (remaining_urls + allowed_link_urls - results.keys).uniq
     end
     results.each do |from_url, result|
       result[:to_urls].each do |to_url|
@@ -45,6 +45,7 @@ class Tester
       end
     end
     results.each do |_from_url, result|
+      result[:to_urls] = result[:to_urls].uniq.sort
       result[:from_urls] = result[:from_urls].uniq.sort
     end
     results.sort.to_h.values
@@ -62,7 +63,7 @@ class Tester
           nil
         end
       end
-    end.flatten.compact.uniq.sort
+    end.flatten.compact.uniq
   end
 
   private
