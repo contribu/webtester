@@ -58,7 +58,7 @@ class Tester
       result[:from_urls] = result[:from_urls].uniq.sort
     end
     results.each do |_from_url, result|
-      result[:errors] = @tests.map { |test| test[:test].call(result)&.[](:error) }.uniq.sort.compact
+      result[:errors] = @tests.map { |test| test[:test].call(result)&.[](:error) }.compact.uniq.sort
     end
     results.sort.to_h.values
   end
